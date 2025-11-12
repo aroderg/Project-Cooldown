@@ -87,8 +87,6 @@ function math.pfloor(n, precision)
     return tostring(rounded)
 end
 
-function lerp(a,b,t) return a * (1-t) + b * t end
-
 function createKronoButton(position, kronoGain, cooldown, cooldownTimer, unlockRank)
     local _ = {}
     _.position = position
@@ -175,11 +173,11 @@ function love.draw()
         love.graphics.printf("Active: " .. nonEmptyModifierSlots .. "/" .. #player.modifierSlots, 926, 8, 240, "center")
         for i,v in pairs(player.modifierSlots) do
             local nameColor = "ffffff"
-            if v.name and v.name:sub(1, 1) == "D" or v.name and v.name:sub(1, 1) == "H" then
+            if v.name and (v.name:sub(1, 1) == "D" or v.name:sub(1, 1) == "G") then
                 nameColor = "000000"
             end
             if v.name then
-                love.graphics.draw(v.image, 898 + i * 62, 42, 0, 48/128)
+                love.graphics.draw(modifierImages[v.name], 898 + i * 62, 42, 0, 48/128)
                 love.graphics.setHexColor(nameColor)
                 love.graphics.setFont(FiraMono_12M)
                 love.graphics.print(v.name, 920 + i * 62, 44)
@@ -199,7 +197,7 @@ function love.draw()
         love.graphics.setColor(255/255, 113/255, 0/255, 96/255)
         love.graphics.rectangle("fill", 926, 173, 240, 10)
         love.graphics.setHexColor("8cd500")
-        love.graphics.rectangle("fill", 1166 - math.floor(240 - player.modifier.assemblyCooldown), 173, 240 - math.ceil(240 * (player.modifier.assemblyCooldown / 240)), 10)
+        love.graphics.rectangle("fill", 926, 173, 240 - math.ceil(240 * (player.modifier.assemblyCooldown / 240)), 10)
     end
 
     if player.menu.modifierDrawn then
@@ -209,8 +207,8 @@ function love.draw()
         love.graphics.setFont(Exo2_32M)
         love.graphics.printf("Modifier drawn!", 0, 150, 1280, "center")
         love.graphics.setFont(FiraMono_32M)
-        love.graphics.draw(player.modifier.lastDrawn.image, 482, 200)
-        if player.modifier.lastDrawn.name:sub(1, 1) == "D" or player.modifier.lastDrawn.name:sub(1, 1) == "H" then
+        love.graphics.draw(modifierImages[player.modifier.lastDrawn.name], 482, 200)
+        if player.modifier.lastDrawn.name:sub(1, 1) == "D" or player.modifier.lastDrawn.name:sub(1, 1) == "G" then
             love.graphics.setHexColor("000000")
         end
         love.graphics.print(player.modifier.lastDrawn.name, 547, 200)
@@ -240,11 +238,11 @@ function love.draw()
         love.graphics.printf("Choose a slot to equip this modifier...", 440, 337, 400, "center")
         local nameColor = "ffffff"
         for i,v in pairs(player.modifierSlots) do
-            if v.name and v.name:sub(1, 1) == "D" or v.name and v.name:sub(1, 1) == "H" then
+            if player.modifier.lastDrawn.name:sub(1, 1) == "D" or player.modifier.lastDrawn.name:sub(1, 1) == "G" then
                 nameColor = "000000"
             end
             if v.name then
-                love.graphics.draw(v.image, 490 + i * 62, 365, 0, 48/128)
+                love.graphics.draw(modifierImages[v.name], 490 + i * 62, 365, 0, 48/128)
                 love.graphics.setHexColor(nameColor)
                 love.graphics.setFont(FiraMono_12M)
                 love.graphics.print(v.name, 512 + i * 62, 367)
@@ -307,7 +305,7 @@ function love.update(dt)
         end
     end
     if player.modifier.assemblyCooldown > 0 then
-        player.modifier.assemblyCooldown = math.max(0, player.modifier.assemblyCooldown - dt)
+        player.modifier.assemblyCooldown = math.max(0, player.modifier.assemblyCooldown - 1)
     end
     if interpolatedKrono ~= player.krono and player.KronoLerp then
         local kronoGap = player.krono - interpolatedKrono
