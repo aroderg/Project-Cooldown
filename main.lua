@@ -313,6 +313,16 @@ function love.update(dt)
         interpolatedKrono = player.krono
         player.kronoGap = 0
     end
+    if player.krono >= rankRequirements[player.rank + 1] then
+        player.krono = player.krono - rankRequirements[player.rank + 1]
+        player.rank = player.rank + 1
+        interpolatedKrono = player.krono
+    elseif player.krono < 0 then
+        player.rank = player.rank - 1
+        player.krono = rankRequirements[player.rank + 1] + player.krono
+        player.kronoGap = 0
+        interpolatedKrono = player.krono
+    end
 end
 
 function love.mousepressed(x, y, button)
