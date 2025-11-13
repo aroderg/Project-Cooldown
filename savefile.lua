@@ -17,7 +17,8 @@ function savefile.read()
             settings = false
         }
         player.theme = data.theme or "sunset"
-        player.KronoLerp = data.lerp or false
+        player.KronoLerp = data.KronoLerp or false
+        player.KronoGap = 0
     else
         player.krono = 0
         player.kronoButtonsCooldowns = {0, 0, 0, 0, 0}
@@ -34,6 +35,7 @@ function savefile.read()
         }
         player.theme = "sunset"
         player.KronoLerp = false
+        player.KronoGap = 0
     end
 end
 

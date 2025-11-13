@@ -25,7 +25,7 @@ function love.load()
     FiraMono_14M = love.graphics.newFont("fonts/FiraMono-Medium.ttf", 14)
     FiraMono_32M = love.graphics.newFont("fonts/FiraMono-Medium.ttf", 32)
     rankRequirements = {}
-    for i=1,50,1 do
+    for i=1,85,1 do
         table.insert(rankRequirements, 2+2*i*(i-1))
     end
     table.insert(rankRequirements, math.huge)
@@ -305,19 +305,20 @@ function love.update(dt)
         end
     end
     if player.modifier.assemblyCooldown > 0 then
-        player.modifier.assemblyCooldown = math.max(0, player.modifier.assemblyCooldown - 1)
+        player.modifier.assemblyCooldown = math.max(0, player.modifier.assemblyCooldown - dt)
     end
-    if interpolatedKrono ~= player.krono and player.KronoLerp then
-        local kronoGap = player.krono - interpolatedKrono
-        interpolatedKrono = interpolatedKrono + (kronoGap / 40) + 1
+    if interpolatedKrono < player.krono and player.KronoLerp then
+        interpolatedKrono = interpolatedKrono + player.kronoGap / 110 - 1
     else
         interpolatedKrono = player.krono
+        player.kronoGap = 0
     end
 end
 
 function love.mousepressed(x, y, button)
     for _,v in pairs(kronoButtons) do
         if x >= v.position[1] and x <= v.position[1] + 240 and y >= v.position[2] and y <= v.position[2] + 28 and v.cooldownTimer <= 0 and player.rank >= v.unlockRank and not player.menu.modifierDrawn then
+            player.kronoGap = 1000
             player.krono = player.krono + v.kronoGain * player.modifier.boosts.kronoGain
             v.cooldownTimer = v.cooldown * player.modifier.boosts.kronoCooldown
             if player.krono >= rankRequirements[player.rank + 1] then
