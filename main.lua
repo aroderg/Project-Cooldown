@@ -33,7 +33,7 @@ function love.load()
     require "savefile"
     savefile.read()
     require "themes"
-    themes.set("sunset")
+    themes.set(player.theme)
     kronoButtons = {}
     createKronoButton({520, 10}, 1, 15, player.kronoButtonsCooldowns[1], 0) -- 0.0(6) Krono/s
     createKronoButton({520, 50}, 6, 45, player.kronoButtonsCooldowns[2], 2) -- 0.1(3) Krono/s
@@ -308,7 +308,7 @@ function love.update(dt)
         player.modifier.assemblyCooldown = math.max(0, player.modifier.assemblyCooldown - dt)
     end
     if interpolatedKrono < player.krono and player.KronoLerp then
-        interpolatedKrono = interpolatedKrono + player.kronoGap / 110 - 1
+        interpolatedKrono = interpolatedKrono + player.kronoGap / 120
     else
         interpolatedKrono = player.krono
         player.kronoGap = 0
@@ -318,7 +318,7 @@ end
 function love.mousepressed(x, y, button)
     for _,v in pairs(kronoButtons) do
         if x >= v.position[1] and x <= v.position[1] + 240 and y >= v.position[2] and y <= v.position[2] + 28 and v.cooldownTimer <= 0 and player.rank >= v.unlockRank and not player.menu.modifierDrawn then
-            player.kronoGap = 1000
+            player.kronoGap = player.kronoGap + v.kronoGain * player.modifier.boosts.kronoGain
             player.krono = player.krono + v.kronoGain * player.modifier.boosts.kronoGain
             v.cooldownTimer = v.cooldown * player.modifier.boosts.kronoCooldown
             if player.krono >= rankRequirements[player.rank + 1] then
