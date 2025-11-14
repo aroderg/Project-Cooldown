@@ -11,7 +11,9 @@ function themes.load()
         modifierFrame = modifier_frame,
         assemblyButton = "ff7100",
         assemblyButtonText = "000000",
-        discardButton = "ff007a"
+        discardButton = "ff007a",
+        settingMenu = "700000",
+        settingButtons = "d10000",
     }
     themeColors.neon = {
         background = love.graphics.newImage("images/background_neon.png"),
@@ -23,7 +25,9 @@ function themes.load()
         modifierFrame = modifier_frame_neon,
         assemblyButton = "000000",
         assemblyButtonText = "ffb496",
-        discardButton = "9500ff"
+        discardButton = "9500ff",
+        settingMenu = "3a004a",
+        settingButtons = "6f0084",
     }
     themeColors.basalt = {
         background = love.graphics.newImage("images/background_basalt.png"),
@@ -35,7 +39,9 @@ function themes.load()
         modifierFrame = modifier_frame_basalt,
         assemblyButton = "705741",
         assemblyButtonText = "d1d1d1",
-        discardButton = "666666"
+        discardButton = "666666",
+        settingMenu = "252531",
+        settingButtons = "3f3f56",
     }
 end
 

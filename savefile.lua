@@ -7,7 +7,7 @@ function savefile.read()
 
         player.krono = data.krono or 0
         player.kronoButtonsCooldowns = {}
-        for i=1,6 do
+        for i=1,7 do
             table.insert(player.kronoButtonsCooldowns, data.kronoButtonsCooldowns[i] or 0)
         end
         player.rank = data.rank or 0
@@ -24,7 +24,7 @@ function savefile.read()
         player.KronoGap = 0
     else
         player.krono = 0
-        player.kronoButtonsCooldowns = {0, 0, 0, 0, 0, 0}
+        player.kronoButtonsCooldowns = {0, 0, 0, 0, 0, 0, 0}
         player.rank = 0
         player.modifierSlots = {
             {}, {}, {}
