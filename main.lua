@@ -40,6 +40,7 @@ function love.load()
     createKronoButton({520, 90}, 30, 100, player.kronoButtonsCooldowns[3], 5) -- 0.3 Krono/s
     createKronoButton({520, 130}, 264, 480, player.kronoButtonsCooldowns[4], 12) -- 0.55 Krono/s
     createKronoButton({520, 170}, 1168, 1320, player.kronoButtonsCooldowns[5], 20) -- 0.8(84) Krono/s
+    createKronoButton({520, 210}, 4278, 4600, player.kronoButtonsCooldowns[6], 28) -- 0.93 Krono/s
     require "modifiers"
     interpolatedKrono = player.krono
     updateModifierBoosts()
