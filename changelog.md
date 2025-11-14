@@ -1,10 +1,24 @@
-# **v25-05-19**
+# **v25-11-14**
+
+# Additions
+- Added two more Krono buttons, unlock at Rank 28 and 38 respectively.
+- The Settings menu is affected by your current theme.
+
+## Changes
+- Extended the maximum rank to 85.
+
+## Fixes
+- The Assembly progress bar's green segment is shown correctly.
+- LERP is now truly linear.
+- Fixed saving Modifier equipped.
+
+# **v25-08-19**
 
 ## Additions
 - Linear interpolation for your Krono amount in the bottom status bar.
 - The Settings menu where you can change the theme and toggle.
 
-# **v25-05-18.p1**
+# **v25-08-18.p1**
 
 ## Additions
 - Visual themes which change your background and button colors.

@@ -41,6 +41,7 @@ function love.load()
     createKronoButton({520, 130}, 264, 480, player.kronoButtonsCooldowns[4], 12) -- 0.55 Krono/s
     createKronoButton({520, 170}, 1168, 1320, player.kronoButtonsCooldowns[5], 20) -- 0.8(84) Krono/s
     createKronoButton({520, 210}, 4278, 4600, player.kronoButtonsCooldowns[6], 28) -- 0.93 Krono/s
+    createKronoButton({520, 250}, 16215, 14100, player.kronoButtonsCooldowns[7], 38) -- 1.15 Krono/s
     require "modifiers"
     interpolatedKrono = player.krono
     updateModifierBoosts()
@@ -129,7 +130,8 @@ function love.draw()
             end
         else
             love.graphics.setHexColor("ffffff")
-            love.graphics.printf("Next button unlocks at Rank " .. v.unlockRank, 520, v.position[2], 240, "center")
+            love.graphics.printf("Next button unlocks at Rank " .. v.unlockRank .. ".", 500, v.position[2], 280, "center")
+            break
         end
     end
     love.graphics.draw(settings, 398, 678)
@@ -268,26 +270,26 @@ function love.draw()
         love.graphics.setHexColor("ffffff")
         love.graphics.setFont(Exo2_24M)
         love.graphics.printf("Settings", 0, 235, 1280, "center")
-        love.graphics.setHexColor("700000")
+        love.graphics.setHexColor(themeColors[player.theme].settingMenu)
         love.graphics.rectangle("fill", 490, 270, 300, 100, 4, 4)
         love.graphics.setHexColor("ffffff")
         love.graphics.rectangle("line", 490, 270, 300, 100, 4, 4)
         love.graphics.setFont(Exo2_16R)
         love.graphics.print("Theme", 498, 282)
         love.graphics.print("Krono Lerp", 498, 336)
-        love.graphics.setHexColor("d10000")
+        love.graphics.setHexColor(themeColors[player.theme].settingButtons)
         love.graphics.rectangle("fill", 690, 280, 90, 24, 2, 2)
         love.graphics.setHexColor("ffffff", 128/255)
         love.graphics.rectangle("line", 690, 280, 90, 24, 2, 2)
         love.graphics.setHexColor("ffffff")
         love.graphics.printf((tostring(player.theme)):sub(1, 1):upper() .. (tostring(player.theme)):sub(2, -1), 690, 281, 90, "center")
-        love.graphics.setHexColor("d10000")
+        love.graphics.setHexColor(themeColors[player.theme].settingButtons)
         love.graphics.rectangle("fill", 740, 335, 40, 24, 2, 2)
         love.graphics.setHexColor("ffffff", 128/255)
         love.graphics.rectangle("line", 740, 335, 40, 24, 2, 2)
         love.graphics.setHexColor("ffffff")
         love.graphics.printf(player.KronoLerp and "ON" or "OFF", 740, 336, 40, "center")
-        love.graphics.setHexColor("d10000")
+        love.graphics.setHexColor(themeColors[player.theme].settingButtons)
         love.graphics.rectangle("fill", 550, 380, 180, 28, 3, 3)
         love.graphics.setHexColor("ffffff")
         love.graphics.rectangle("line", 550, 380, 180, 28, 3, 3)
@@ -309,7 +311,7 @@ function love.update(dt)
         player.modifier.assemblyCooldown = math.max(0, player.modifier.assemblyCooldown - dt)
     end
     if interpolatedKrono < player.krono and player.KronoLerp then
-        interpolatedKrono = interpolatedKrono + player.kronoGap / 120
+        interpolatedKrono = interpolatedKrono + player.kronoGap / 60
     else
         interpolatedKrono = player.krono
         player.kronoGap = 0
